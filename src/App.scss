@@ -1,0 +1,16 @@
+@import "./common/colors.scss";
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background-color: $primary-color;
+}
+
+.container {
+    margin: 0px 40px;
+}
