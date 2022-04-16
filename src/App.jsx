@@ -1,26 +1,36 @@
-import "./App.scss";
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
-import Home from "./components/Home/Home";
+import { useEffect, useState } from "react";
+import "./App.css";
+import { BrowserRouter as Router,Routes,Link } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import PNF from "./components/PNF/PNF";
-import MovieDetail from "./components/MovieDetail/MovieDetail";
+import fetcher from "./redux/movies";
+import Search from "./components/Search/Search";
+import { useDispatch, useSelector } from "react-redux";
+import {fetchMovies} from "./redux/movieSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  const [Movies,setMovies] = useState([]);
+  let moviesArr = useSelector((state) => state.movies.movieArr);
+  let real = moviesArr ? moviesArr : [ {Title:"No movie found"} ];
+
+  
+
   return (
     <div className='App'>
       <Router>
+
+
         <Header></Header>
-        <div className="container">
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path='/movie/:imdbid' element={ <MovieDetail/>} />
-          <Route component={PNF} />
-        </Routes>
-        </div>
+
+        <Search></Search>
+        
+        {real.map((m) => {
+          return <h2>{m.Title}</h2>
+        })}
+
         <Footer></Footer>
+
       </Router>
     </div>
   );
